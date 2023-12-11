@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="marginTop" id="marginTop">
+    <div class="span-value-range">
+        <span class='left-val'>$11 000</span>
+        <span class='right-val'>$36 000</span>
+    </div>
+    <span class="int-cont">
+        <div id="bill_range_progress" style="width: 0%">
+          <div class="box-output">
+            <div class="body-output">
+              <output name="billOutputName" id="billOutputName">$11 000</output>
+            </div>
+          </div>
+        </div>
+
+        <input
+                type="range"
+                name="electric_bill"
+                min="11000"
+                max="36000"
+                value="11000"
+                class="custom-range"
+                id="electric_bill"
+                oninput="window.electricBillPer = ((electric_bill.value - electric_bill.min)/(electric_bill.max - electric_bill.min))*100;billOutputName.value = electric_bill.value; bill_range_progress.style.width= electricBillPer + '%'"
+                data-gtm-form-interact-field-id="4"
+        />
+      </span>
+
+    <div class="range-line-val">
+        <span>|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span>|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span>|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span>|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span class="range-line-value-size">|</span>
+        <span>|</span>
+    </div>
+    <div class="bottom-text">
+        <span>11 000</span>
+        <span>17 250</span>
+        <span>23 500</span>
+        <span>29 750</span>
+        <span>36 000</span>
+    </div>
+</div>
+
+
+
+
+<script>
+    const sliders = document.getElementById('electric_bill');
+    const input = document.querySelector('[data-q="estimated_houshold_income"]');
+
+
+    function dispatchValue() {
+        input.value = sliders.value;
+        const InputEvent = new Event("input");
+        input.dispatchEvent(InputEvent);
+    }
+
+    sliders.addEventListener("input", dispatchValue);
+</script>
+
+<script>
+    const readOnly = ['income_verification',"verification-information","consent_acknowledgement","authorization-attestation"];
+    readOnly.forEach(sel =>{
+        sel = document.querySelector('textarea[data-q="'+sel+'"]');
+        if(sel){
+            sel.readOnly = true;
+        }
+    })
+
+    const clearBtn = document.querySelector('.clear-button')
+    clearBtn.innerHTML = '&#10006;'
+    clearBtn.style.display = 'flex';
+    clearBtn.style.justifyContent = 'center';
+    clearBtn.style.alignItems = 'center';
+    /* -- -- */
+    function moveSlide(dir) {
+        document.querySelector(dir !== 'submit' ? '.ghl-footer-' + dir : ".ghl-submit-btn")?.click()
+    }
+</script>
+
+</body>
+</html>

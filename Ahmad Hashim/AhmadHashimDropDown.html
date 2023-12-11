@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="accordion">
+    <!-- Accordion Header -->
+    <div class="accordion-head">
+        <div class="heading">
+            <h5 class="dependent-1">Dependent 1</h5>
+        </div>
+        <!-- Accordion Close/Open Btn -->
+        <div class="collapse-btn">
+          <span class="close-icon cursor-pointer">
+            <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                      d="M15 13L10 8L5 13"
+                      stroke-width="1.67"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </div>
+    </div>
+    <!-- Accordion Body -->
+    <div class="accordion-body-main">
+        <div class="accordion-body">
+            <div class="accordion-card">
+                <div class="accordion-items">
+                    <div class="repeater-field-content">
+                        <div class="container-repeater-field" data-id="6037">
+                            <div class="inputsAlign">
+                                <div class="form-field elementor-col-33 firstName">
+                                    <label
+                                            for="form-field-dep_Fname"
+                                            class="elementor-field-label"
+                                    >
+                                        First Name <span>*</span>
+                                    </label>
+                                    <input
+                                            oninput="setAndDispatch('dependent_first_name', this.value)"
+                                            type="text"
+                                            name="form_fields[dep_Fname][6037]"
+                                            id="form-field-dep_Fname-6037"
+                                            class="form-input"
+                                            placeholder="Enter First Name"
+                                            aria-required="true"
+                                    />
+                                </div>
+                                <div class="form-field elementor-col-33 lastName">
+                                    <label
+                                            for="form-field-dep_Lname"
+                                            class="elementor-field-label"
+                                    >
+                                        Last Name <span>*</span>
+                                    </label>
+                                    <input
+                                            oninput="setAndDispatch('dependent_last_name', this.value)"
+                                            type="text"
+                                            name="form_fields[dep_Lname][6037]"
+                                            id="form-field-dep_Lname-6037"
+                                            class="form-input"
+                                            placeholder="Enter Last Name"
+                                            aria-required="true"
+                                    />
+                                </div>
+                                <div class="form-field elementor-col-33 genderName">
+                                    <label
+                                            for="form-field-dep_gender"
+                                            class="elementor-field-label"
+                                    >
+                                        Gender <span>*</span>
+                                    </label>
+                                    <select
+                                            oninput="setAndDispatch('dependent_gender', this.value)"
+                                            name="form_fields[dep_gender][6037]"
+                                            id="form-field-dep_gender-6037"
+                                            class="form-select"
+                                            required="required"
+                                            aria-required="true"
+                                    >
+                                        <option value="Please select Gender">
+                                            Please select Gender
+                                        </option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="dobandSsn">
+                                <div class="form-field elementor-col-50 date-of-birth">
+                                    <label
+                                            for="form-field-dep_dob"
+                                            class="elementor-field-label"
+                                    >
+                                        Date of Birth <span>*</span>
+                                    </label>
+                                    <input
+                                            oninput="setAndDispatch('dependent_date_of_birth', this.value)"
+                                            type="text"
+                                            name="form_fields[dep_dob][6037]"
+                                            id="form-field-dep_dob-6037"
+                                            class="form-input"
+                                            placeholder="Enter MM-DD-YYYY"
+                                            aria-required="true"
+                                    />
+                                </div>
+                                <div class="form-field elementor-col-50 ssnName">
+                                    <label
+                                            for="form-field-dep_relationship"
+                                            class="elementor-field-label"
+                                    >
+                                        SSN <i style="color: #169625">(if adding to plan)</i>
+                                    </label>
+                                    <input
+                                            oninput="setAndDispatch('dependent_ssn', this.value)"
+                                            type="text"
+                                            name="form_fields[dep_relationship][6037]"
+                                            id="form-field-dep_relationship-6037"
+                                            class="form-input"
+                                            placeholder="Enter SSN (Only numbers)"
+                                            minlength="9"
+                                            maxlength="11"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='btnMargin'>
+        <button class="addDependentBtn" type="button">Add Dependent</button>
+    </div>
+
+</div>
+
+<script>
+    const targetedFields = document.querySelectorAll(`.accordion`);
+    targetedFields.forEach((inputs) => {
+        const findClosestofTexas = inputs.closest(".form-field-container");
+        findClosestofTexas?.classList.add("d-none");
+    });
+
+    let collapseBtn = document.querySelector(".close-icon");
+    let accordionBodyMain = document.querySelector(".accordion-body-main");
+    let toggleClick = true;
+
+    collapseBtn.addEventListener("click", (e) => {
+        let accordionCardHeight =
+            document.querySelector(".accordion-body").getBoundingClientRect()
+                .height + 4;
+        accordionBodyMain.style.height = toggleClick
+            ? accordionCardHeight + "px"
+            : 0;
+        console.log(e.target);
+        collapseBtn.children[0].style.transform = "rotate(" + (toggleClick ? 0 : 180) + "deg)";
+        toggleClick = !toggleClick;
+    });
+
+
+    function setAndDispatch(selector, val) {
+        let arr = ["data-q", "id", "class", "name"];
+        let elm;
+        for (let sel of arr) {
+            elm = document.querySelector(`#_builder-form [${sel}="${selector}"]`);
+            if (elm) break;
+        }
+        if (!elm) return;
+        elm.value = val;
+        elm.dispatchEvent(new Event("input"));
+    }
+</script>
+</body>
+</html>
